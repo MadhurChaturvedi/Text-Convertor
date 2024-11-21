@@ -7,7 +7,7 @@ export default function App() {
     img: "https://purepng.com/public/uploads/large/purepng.com-orange-orangeorangefruitbitter-orangeorangesclip-art-1701527337098cr1i6.png",
   };
 
-  const [Mode, setMode] = useState("dark");
+  const [Mode, setMode] = useState("light");
 
   const toggleMode = () => {
     if (Mode === "light") {
@@ -23,7 +23,7 @@ export default function App() {
       } m-auto flex justify-around md:px-40 xl:px-40`}
     >
       <div
-        className={`container ${
+        className={`containe mx-autor ${
           Mode === "dark" ? "bg-blue-950" : "bg-white"
         }  `}
       >

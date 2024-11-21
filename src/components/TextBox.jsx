@@ -5,7 +5,7 @@ export default function TextBox(prop) {
     img: "https://purepng.com/public/uploads/large/purepng.com-orange-orangeorangefruitbitter-orangeorangesclip-art-1701527337098cr1i6.png",
   };
   const [text, setText] = React.useState("");
-  const [color, setColor] = React.useState("#ff0000");
+  const [color, setColor] = React.useState("green");
   function handleText(event) {
     setText(event.target.value);
   }
@@ -28,12 +28,19 @@ export default function TextBox(prop) {
     setColor(event.target.value);
   }
 
+  const trimSpace = () => {
+    let rspace = text.replace(/\s+/g, " ").trim();
+    setText(rspace);
+  };
+
   const PrintFirstLetter = () => {
-    text.split(" ");
-    for (let i = 0; i < text.length; i++) {
-      let firstLetter = text[i][0];
-      setText(firstLetter);
-    }
+    const words = text.split(" ");
+
+    words
+      .map((word) => {
+        return word[0].toUpperCase() + word.substring(1);
+      })
+      .join(" ");
   };
 
   return (
@@ -41,9 +48,12 @@ export default function TextBox(prop) {
       <div className="form-group pt-14 ">
         <textarea
           onChange={handleText}
-          style={{ color: color }}
-          className={`form-control border-2 text-2xl placeholder:text-gray-500 p-3 font-mono`}
-          id="exampleFormControlTextarea1"
+          //   style={{ color: color }}
+          className={`form-control  border-2 text-2xl  p-3 ${
+            prop.mode === "dark"
+              ? "bg-black text-white"
+              : "bg-white text-gray-800"
+          } font-mono`}
           rows="7"
           placeholder="You can write the something here..."
           value={text}
@@ -52,7 +62,7 @@ export default function TextBox(prop) {
       <div className="flex-row gap-3 md:flex items-center gap-5">
         <button
           type="button"
-          className="btn btn-primary mt-4 p-4"
+          className="btn btn-primary mt-4 "
           onClick={handleUppercase}
         >
           UpperCase
@@ -60,21 +70,28 @@ export default function TextBox(prop) {
 
         <button
           type="button"
-          className="btn btn-primary mt-4 p-4"
+          className="btn btn-primary mt-4 "
           onClick={handleLowerCase}
         >
           LowerCase
         </button>
         <button
           type="button"
-          className="btn btn-primary mt-4 p-4"
+          className="btn btn-primary mt-4 "
           onClick={handleClear}
         >
           Clear Text
         </button>
         <button
           type="button"
-          className="btn btn-warning mt-4 p-4"
+          className="btn btn-primary mt-4"
+          onClick={trimSpace}
+        >
+          Remove Space
+        </button>
+        <button
+          type="button"
+          className="btn btn-warning mt-4"
           onClick={PrintFirstLetter}
           disabled
         >
@@ -82,7 +99,7 @@ export default function TextBox(prop) {
         </button>
         <button
           type="button"
-          className="btn btn-primary mt-4 flex items-center flex-col gap-2"
+          className="btn btn-warning mt-4 flex items-center flex-col gap-2"
         >
           <input
             type="color"
@@ -90,6 +107,7 @@ export default function TextBox(prop) {
             name="favcolor"
             // value="#ff0000"
             onChange={changeColor}
+            disabled
             value={color}
           />
           Color Picker
