@@ -52,7 +52,7 @@ export default function App() {
             value={text}
           ></textarea>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex-row gap-3 md:flex items-center gap-5">
           <button
             type="button"
             className="btn btn-primary mt-4 p-4"
